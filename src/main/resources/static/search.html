@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Blood Donors — BloodLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C92A3E'><path d='M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z'/></svg>">
+</head>
+<body>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <a href="index.html" class="brand-logo">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <span>BloodLink</span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation">
+            <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </div>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    </div>
+                    <span>BloodLink</span>
+                </a>
+                <span class="sidebar-brand-badge">Registry</span>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-section-label">Main Navigation</li>
+                <li>
+                    <a href="dashboard.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="donors.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Donor Registry
+                    </a>
+                </li>
+                <li>
+                    <a href="search.html" class="sidebar-link active">
+                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Find Donors
+                    </a>
+                </li>
+                <li class="sidebar-section-label" style="margin-top: 10px;">Actions</li>
+                <li>
+                    <a href="register-donor.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                        Register Donor
+                    </a>
+                </li>
+                <li>
+                    <a href="donations.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                        Record Donation
+                    </a>
+                </li>
+                <li class="sidebar-section-label" style="margin-top: 10px;">Documentation</li>
+                <li>
+                    <a href="about.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        About &amp; Medical Rules
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <span>Database Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="page-title">
+                    <h1>Find a Blood Donor</h1>
+                    <p>Emergency search for active, medically eligible donors. Donors in the 90-day cooldown are safely excluded.</p>
+                </div>
+                <div>
+                    <a href="register-donor.html" class="btn btn-secondary btn-sm">+ Register New Donor</a>
+                </div>
+            </div>
+
+            <!-- Search Form Card -->
+            <div class="card" style="margin-bottom: 24px;">
+                <div class="card-body">
+                    <form id="donorSearchForm">
+                        <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end;">
+                            <div class="form-group" style="flex: 1; min-width: 200px;">
+                                <label class="form-label" for="searchBloodGroup">Blood Group</label>
+                                <select id="searchBloodGroup" class="form-select">
+                                    <option value="">All Blood Groups</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="flex: 1.6; min-width: 240px;">
+                                <label class="form-label" for="searchCity">City / Location</label>
+                                <input type="text" id="searchCity" class="form-control" placeholder="Search city (e.g. Coimbatore, Chennai)">
+                            </div>
+
+                            <div style="display: flex; gap: 8px;">
+                                <button type="submit" class="btn btn-primary" id="searchSubmitBtn">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    Find Donors
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="searchResetBtn">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quick City Suggestions -->
+                        <div style="margin-top: 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted);">Quick Search:</span>
+                            <button type="button" class="btn btn-secondary btn-sm city-chip" data-city="Coimbatore" style="padding: 3px 9px; font-size: 0.78rem;">Coimbatore</button>
+                            <button type="button" class="btn btn-secondary btn-sm city-chip" data-city="Chennai" style="padding: 3px 9px; font-size: 0.78rem;">Chennai</button>
+                            <button type="button" class="btn btn-secondary btn-sm city-chip" data-city="Salem" style="padding: 3px 9px; font-size: 0.78rem;">Salem</button>
+                            <button type="button" class="btn btn-secondary btn-sm city-chip" data-city="Erode" style="padding: 3px 9px; font-size: 0.78rem;">Erode</button>
+                            <button type="button" class="btn btn-secondary btn-sm city-chip" data-city="Namakkal" style="padding: 3px 9px; font-size: 0.78rem;">Namakkal</button>
+                            <button type="button" class="btn btn-secondary btn-sm city-chip" data-city="Tiruchengode" style="padding: 3px 9px; font-size: 0.78rem;">Tiruchengode</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Summary Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="font-size: 0.95rem; font-weight: 700; color: var(--dark);" id="searchResultTitle">
+                    Available Donors
+                </div>
+                <div style="font-size: 0.8125rem; color: var(--text-secondary); font-weight: 500;" id="searchResultCount">
+                    Showing 0 eligible donors
+                </div>
+            </div>
+
+            <!-- Donor Cards Container -->
+            <div class="donor-cards-grid" id="donorCardsGrid">
+                <!-- Cards populated by JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Contact Donor Modal -->
+    <div class="modal-backdrop" id="contactModal">
+        <div class="modal" style="max-width: 440px;">
+            <div class="modal-header">
+                <h3>Contact Donor</h3>
+                <button class="modal-close" onclick="closeModal('contactModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="contactModalBody">
+                <!-- Injected dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('contactModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

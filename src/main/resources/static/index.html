@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodLink — Blood Donor Registry and Search</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C92A3E'><path d='M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z'/></svg>">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="site-nav">
+            <a href="index.html" class="brand-logo" id="homeLink">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                </div>
+                <span>BloodLink</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="search.html" class="nav-link">Find Donors</a></li>
+                <li><a href="donors.html" class="nav-link">Donor Registry</a></li>
+                <li><a href="donations.html" class="nav-link">Record Donation</a></li>
+                <li><a href="about.html" class="nav-link">About &amp; Rules</a></li>
+                <li><a href="register-donor.html" class="btn btn-primary btn-sm">+ Register Donor</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-tag">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    Connecting Donors. Saving Lives.
+                </div>
+                <h1 class="hero-title">
+                    Find the right <span>blood donor</span> when every second matters.
+                </h1>
+                <p class="hero-subtitle">
+                    BloodLink helps hospitals, patients, and healthcare volunteers quickly connect with verified, eligible blood donors filtered by blood group and city. Built-in 90-day medical cooldown safeguards protect donor health.
+                </p>
+                <div class="hero-cta">
+                    <a href="search.html" class="btn btn-primary btn-lg" id="heroSearchBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Find a Donor
+                    </a>
+                    <a href="register-donor.html" class="btn btn-secondary btn-lg" id="heroRegisterBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                        Register as Donor
+                    </a>
+                </div>
+
+                <!-- Live Metrics fetched from backend -->
+                <div class="hero-metrics">
+                    <div class="hero-metric-item">
+                        <h4 id="heroTotalDonors">--</h4>
+                        <p>Total Registered</p>
+                    </div>
+                    <div class="hero-metric-item">
+                        <h4 id="heroAvailableDonors" style="color: var(--success);">--</h4>
+                        <p>Currently Available</p>
+                    </div>
+                    <div class="hero-metric-item">
+                        <h4 id="heroTotalDonations" style="color: var(--primary);">--</h4>
+                        <p>Donations Completed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-visual-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                </div>
+                <h3>Active Registry System</h3>
+                <p>Real-time availability monitoring with automated 90-day cooldown enforcement to guarantee safe, medically compliant donations.</p>
+                <div style="margin-top: 20px; padding: 14px; background: var(--bg); border-radius: var(--radius-sm); border: 1px solid var(--border); display: flex; justify-content: space-around;">
+                    <div>
+                        <div style="font-weight: 700; color: var(--dark); font-size: 1.05rem;">90 Days</div>
+                        <div style="font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase;">Safe Interval</div>
+                    </div>
+                    <div style="border-right: 1px solid var(--border);"></div>
+                    <div>
+                        <div style="font-weight: 700; color: var(--dark); font-size: 1.05rem;">8 Types</div>
+                        <div style="font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase;">Blood Groups</div>
+                    </div>
+                    <div style="border-right: 1px solid var(--border);"></div>
+                    <div>
+                        <div style="font-weight: 700; color: var(--success); font-size: 1.05rem;">Active</div>
+                        <div style="font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase;">DB Sync</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 90-Day Medical Rule Info Banner -->
+        <section style="padding: 0 24px;">
+            <div class="rule-banner">
+                <div class="rule-banner-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div class="rule-banner-content">
+                    <h4>Automated 90-Day Medical Cooldown Policy</h4>
+                    <p>To adhere to global medical safety guidelines, donors are automatically placed on a 90-day cooldown after any donation. During this time, they do not appear in emergency search results and cannot donate again until their full rest period is reached.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How BloodLink Works Section -->
+        <section class="features-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">How BloodLink Works</h2>
+                    <p class="section-subtitle">A simple, transparent four-step workflow designed to save lives during critical medical emergencies.</p>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Register</h3>
+                        <p>Volunteers register with their blood group, location, and past donation history through our quick verification form.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Search</h3>
+                        <p>Patients or hospitals filter instantly by blood group (e.g. O+, AB-) and city to locate eligible donors.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Connect</h3>
+                        <p>Directly contact available donors with clear contact information without running into ineligible candidates.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3>Save Lives</h3>
+                        <p>Record donations to update the donor's medical timeline and initiate their automated 90-day cooldown cycle.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--card-bg); border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; margin-top: 40px;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 700;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#C92A3E"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                <span>BloodLink</span>
+                <span style="font-size: 0.8125rem; font-weight: 400; color: var(--text-secondary); margin-left: 10px;">Connecting donors. Saving lives.</span>
+            </div>
+            <div style="font-size: 0.8125rem; color: var(--text-secondary);">
+                Academic Full-Stack Project &bull; Spring Boot + MySQL + Vanilla Web
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        // Fetch quick hero metrics
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const stats = await fetchJson('/api/dashboard');
+                document.getElementById('heroTotalDonors').textContent = stats.totalDonors ?? 0;
+                document.getElementById('heroAvailableDonors').textContent = stats.availableDonors ?? 0;
+                document.getElementById('heroTotalDonations').textContent = stats.totalDonations ?? 0;
+            } catch (e) {
+                console.warn('Could not load hero stats:', e);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Project — BloodLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C92A3E'><path d='M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z'/></svg>">
+</head>
+<body>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <a href="index.html" class="brand-logo">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <span>BloodLink</span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation">
+            <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </div>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    </div>
+                    <span>BloodLink</span>
+                </a>
+                <span class="sidebar-brand-badge">Registry</span>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-section-label">Main Navigation</li>
+                <li>
+                    <a href="dashboard.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="donors.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Donor Registry
+                    </a>
+                </li>
+                <li>
+                    <a href="search.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Find Donors
+                    </a>
+                </li>
+                <li class="sidebar-section-label" style="margin-top: 10px;">Actions</li>
+                <li>
+                    <a href="register-donor.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                        Register Donor
+                    </a>
+                </li>
+                <li>
+                    <a href="donations.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                        Record Donation
+                    </a>
+                </li>
+                <li class="sidebar-section-label" style="margin-top: 10px;">Documentation</li>
+                <li>
+                    <a href="about.html" class="sidebar-link active">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        About &amp; Medical Rules
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <span>Database Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="page-title">
+                    <h1>About BloodLink</h1>
+                    <p>Academic Full-Stack Project &bull; Spring Boot + MySQL + Vanilla Web</p>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 20px; max-width: 900px;">
+                <!-- Problem Statement & Objective -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>1. Problem Statement &amp; Objective</h2>
+                    </div>
+                    <div class="card-body">
+                        <p style="margin-bottom: 12px; color: var(--text-secondary); line-height: 1.6;">
+                            In critical medical situations such as emergency surgeries, vehicular trauma, or thalassemia treatments, locating a willing and medically eligible blood donor with the required blood group is often a race against the clock.
+                        </p>
+                        <p style="margin-bottom: 12px; color: var(--text-secondary); line-height: 1.6;">
+                            Most standard community blood directories suffer from two critical flaws:
+                        </p>
+                        <ol style="margin-left: 20px; margin-bottom: 14px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 6px;">
+                            <li>They list donors who have donated very recently, resulting in frantic calls to donors who are medically banned from donating.</li>
+                            <li>They require manual administrative intervention to reactivate donors once their recovery duration ends.</li>
+                        </ol>
+                        <p style="color: var(--dark); font-weight: 500; line-height: 1.6;">
+                            <strong>BloodLink's Objective:</strong> Maintain an automated, medically safe donor registry that calculates eligibility dynamically in the backend service layer, hides donors during their 90-day cooldown period, and re-enables them automatically the moment 90 days elapse.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 90-Day Cooldown Logic -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>2. The 90-Day Medical Cooldown Business Rule</h2>
+                        <span class="badge badge-cooldown">Core Rule</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="margin-bottom: 12px; color: var(--text-secondary); line-height: 1.6;">
+                            According to World Health Organization (WHO) and National Blood Transfusion Council guidelines, a minimum interval of <strong>90 days (approx. 3 months)</strong> must be maintained between whole blood donations to allow the donor's body to replenish red blood cells and iron stores safely.
+                        </p>
+
+                        <div style="background-color: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 14px;">
+                            <div style="font-weight: 600; font-size: 0.82rem; color: var(--dark); margin-bottom: 4px;">Backend Implementation Architecture:</div>
+                            <pre style="background: #fff; padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); font-family: monospace; font-size: 0.8125rem; color: var(--dark); overflow-x: auto;">
+public boolean isEligible(Donor donor) {
+    if (donor.getLastDonationDate() == null) {
+        return true; // Never donated -> Eligible
+    }
+    LocalDate eligibleDate = donor.getLastDonationDate().plusDays(90);
+    return !LocalDate.now().isBefore(eligibleDate);
+}</pre>
+                        </div>
+
+                        <h4 style="font-size: 0.92rem; color: var(--dark); margin-bottom: 8px;">Key Guarantees:</h4>
+                        <ul style="margin-left: 20px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 7px; font-size: 0.85rem;">
+                            <li><strong>Service-Layer Enforcement:</strong> Frontend validation is treated as a visual aid. The Spring Boot backend service layer strictly enforces the rule and rejects illegal donation attempts with HTTP 400 Bad Request.</li>
+                            <li><strong>Zero Deadlocks:</strong> When dates progress beyond 90 days, the donor status dynamically switches to <code>available = true</code> without any manual admin clicking.</li>
+                            <li><strong>Search Isolation:</strong> Search queries filter out candidates who are still within their 90-day cooldown window.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Technology Stack -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>3. Technology Stack</h2>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 8px;">Backend Architecture</h4>
+                                <ul style="list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: 0.85rem; color: var(--text-secondary);">
+                                    <li>&bull; <strong>Java 17 / 21</strong> (Modern Java LTS)</li>
+                                    <li>&bull; <strong>Spring Boot 3.3.4</strong></li>
+                                    <li>&bull; <strong>Spring Web (REST APIs)</strong></li>
+                                    <li>&bull; <strong>Spring Data JPA (Hibernate)</strong></li>
+                                    <li>&bull; <strong>Spring Validation</strong> (Jakarta Bean Validation)</li>
+                                    <li>&bull; <strong>MySQL 8.0</strong> Relational Database</li>
+                                    <li>&bull; <strong>Maven</strong> Build Tool</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 8px;">Frontend &amp; UI/UX</h4>
+                                <ul style="list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: 0.85rem; color: var(--text-secondary);">
+                                    <li>&bull; <strong>HTML5 &amp; Semantic Web</strong></li>
+                                    <li>&bull; <strong>Vanilla CSS3</strong> (No Tailwind, No Bootstrap)</li>
+                                    <li>&bull; <strong>Vanilla JavaScript (ES6+)</strong></li>
+                                    <li>&bull; <strong>Native Fetch API</strong></li>
+                                    <li>&bull; <strong>Chart.js</strong> for Blood Group Distribution</li>
+                                    <li>&bull; <strong>Clean Responsive Design</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REST API Endpoints Reference -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>4. REST API Reference</h2>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Endpoint</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge" style="background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE;">GET</span></td>
+                                    <td><code>/api/donors</code></td>
+                                    <td>List all registered donors with live cooldown status</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE;">GET</span></td>
+                                    <td><code>/api/donors/{id}</code></td>
+                                    <td>Retrieve single donor by primary key ID</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#F0FDF4; color:#15803D; border:1px solid #BBF7D0;">POST</span></td>
+                                    <td><code>/api/donors</code></td>
+                                    <td>Register a new blood donor with validation</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#FFFBEB; color:#B45309; border:1px solid #FDE68A;">PUT</span></td>
+                                    <td><code>/api/donors/{id}</code></td>
+                                    <td>Update donor profile information</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#FEF2F2; color:#DC2626; border:1px solid #FECACA;">DELETE</span></td>
+                                    <td><code>/api/donors/{id}</code></td>
+                                    <td>Delete donor and associated donation history</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE;">GET</span></td>
+                                    <td><code>/api/donors/search</code></td>
+                                    <td>Search available (non-cooldown) donors by blood group &amp; city</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE;">GET</span></td>
+                                    <td><code>/api/blood-groups</code></td>
+                                    <td>List all 8 recognized blood groups (A+, B+, etc.)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE;">GET</span></td>
+                                    <td><code>/api/donations</code></td>
+                                    <td>List donation history logs</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#F0FDF4; color:#15803D; border:1px solid #BBF7D0;">POST</span></td>
+                                    <td><code>/api/donations</code></td>
+                                    <td>Record a new blood donation (enforces 90-day cooldown)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge" style="background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE;">GET</span></td>
+                                    <td><code>/api/dashboard</code></td>
+                                    <td>Aggregated donor statistics, distribution, and recent logs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+</body>
+</html>

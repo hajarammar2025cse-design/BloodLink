@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Donation — BloodLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C92A3E'><path d='M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z'/></svg>">
+</head>
+<body>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <a href="index.html" class="brand-logo">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <span>BloodLink</span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation">
+            <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </div>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    </div>
+                    <span>BloodLink</span>
+                </a>
+                <span class="sidebar-brand-badge">Registry</span>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-section-label">Main Navigation</li>
+                <li>
+                    <a href="dashboard.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="donors.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Donor Registry
+                    </a>
+                </li>
+                <li>
+                    <a href="search.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Find Donors
+                    </a>
+                </li>
+                <li class="sidebar-section-label" style="margin-top: 10px;">Actions</li>
+                <li>
+                    <a href="register-donor.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                        Register Donor
+                    </a>
+                </li>
+                <li>
+                    <a href="donations.html" class="sidebar-link active">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                        Record Donation
+                    </a>
+                </li>
+                <li class="sidebar-section-label" style="margin-top: 10px;">Documentation</li>
+                <li>
+                    <a href="about.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        About &amp; Medical Rules
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <span>Database Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="page-title">
+                    <h1>Record Blood Donation</h1>
+                    <p>Log a completed blood donation. The donor will enter a mandatory 90-day cooldown interval.</p>
+                </div>
+            </div>
+
+            <!-- Donation Form & Selected Donor Live Preview Grid -->
+            <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; margin-bottom: 24px;" class="donation-grid">
+                <!-- Donation Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>New Donation Entry</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="recordDonationForm">
+                            <div class="form-group" style="margin-bottom: 16px;">
+                                <label class="form-label" for="selectDonor">
+                                    Select Donor <span class="required">*</span>
+                                </label>
+                                <select id="selectDonor" class="form-select" required>
+                                    <option value="">-- Choose a registered donor --</option>
+                                </select>
+                                <span class="form-hint">Both eligible donors and those in cooldown are listed. Ineligible donors cannot donate.</span>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 22px;">
+                                <label class="form-label" for="donationDate">
+                                    Donation Date <span class="required">*</span>
+                                </label>
+                                <input type="date" id="donationDate" class="form-control" required>
+                                <span class="form-hint">Cannot be in the future.</span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg" id="recordSubmitBtn" style="width: 100%;">
+                                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                                Record Blood Donation
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Live Donor Status Preview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Donor Eligibility Inspection</h2>
+                        <span id="previewStatusBadge" style="font-size: 0.75rem; color: var(--text-muted);">Select a donor</span>
+                    </div>
+                    <div class="card-body" id="donorPreviewBody">
+                        <div style="text-align: center; color: var(--text-muted); padding: 36px 10px;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 8px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            <p style="font-size: 0.85rem;">Select a donor from the dropdown to check their current 90-day cooldown status and medical eligibility.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donation History Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Donation Records Log</h2>
+                    <span style="font-size: 0.78rem; color: var(--text-secondary); font-weight: 500;">Historical log of all completed donations</span>
+                </div>
+                <div class="table-container" style="border: none; border-radius: 0;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Log ID</th>
+                                <th>Donor Name</th>
+                                <th>Blood Group</th>
+                                <th>City</th>
+                                <th>Donation Date</th>
+                                <th>Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donationsTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">
+                                    Loading donation logs...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/donations.js"></script>
+</body>
+</html>

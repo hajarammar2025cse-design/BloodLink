@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Registry — BloodLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C92A3E'><path d='M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z'/></svg>">
+</head>
+<body>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <a href="index.html" class="brand-logo">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <span>BloodLink</span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation">
+            <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </div>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    </div>
+                    <span>BloodLink</span>
+                </a>
+                <span class="sidebar-brand-badge">Registry</span>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-section-label">Main Navigation</li>
+                <li>
+                    <a href="dashboard.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="donors.html" class="sidebar-link active">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Donor Registry
+                    </a>
+                </li>
+                <li>
+                    <a href="search.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Find Donors
+                    </a>
+                </li>
+                <li class="sidebar-section-label" style="margin-top: 10px;">Actions</li>
+                <li>
+                    <a href="register-donor.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                        Register Donor
+                    </a>
+                </li>
+                <li>
+                    <a href="donations.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                        Record Donation
+                    </a>
+                </li>
+                <li class="sidebar-section-label" style="margin-top: 10px;">Documentation</li>
+                <li>
+                    <a href="about.html" class="sidebar-link">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        About &amp; Medical Rules
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <span>Database Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="page-title">
+                    <h1>Donor Registry</h1>
+                    <p>Manage registered blood donors and their availability.</p>
+                </div>
+                <div>
+                    <a href="register-donor.html" class="btn btn-primary" id="addDonorBtn">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Register Donor
+                    </a>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="form-group">
+                    <label class="form-label" for="filterBloodGroup">Blood Group</label>
+                    <select id="filterBloodGroup" class="form-select">
+                        <option value="">All Blood Groups</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="filterCity">City</label>
+                    <input type="text" id="filterCity" class="form-control" placeholder="Filter by city (e.g. Coimbatore)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="filterAvailability">Availability Status</label>
+                    <select id="filterAvailability" class="form-select">
+                        <option value="">All Statuses</option>
+                        <option value="available">Available (Eligible)</option>
+                        <option value="cooldown">In Cooldown</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-secondary" id="resetFilterBtn">Reset</button>
+                </div>
+            </div>
+
+            <!-- Donor Table Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Registered Donors (<span id="donorCountHeader">0</span>)</h2>
+                    <span style="font-size: 0.78rem; color: var(--text-secondary); font-weight: 500;">Live synchronization enabled</span>
+                </div>
+                <div class="table-container" style="border: none; border-radius: 0;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Blood Group</th>
+                                <th>City</th>
+                                <th>Contact</th>
+                                <th>Last Donation</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donorTableBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 40px;">
+                                    Loading registered donors...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Donor Modal -->
+    <div class="modal-backdrop" id="viewModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Donor Details</h3>
+                <button class="modal-close" onclick="closeModal('viewModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewModalBody">
+                <!-- Injected dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('viewModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Donor Modal -->
+    <div class="modal-backdrop" id="editModal">
+        <div class="modal" style="max-width: 540px;">
+            <div class="modal-header">
+                <h3>Edit Donor</h3>
+                <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
+            </div>
+            <form id="editDonorForm">
+                <div class="modal-body">
+                    <input type="hidden" id="editDonorId">
+                    <div class="form-grid" style="margin-bottom: 0;">
+                        <div class="form-group full-width">
+                            <label class="form-label" for="editFullName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="editFullName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="editBloodGroup">Blood Group <span class="required">*</span></label>
+                            <select id="editBloodGroup" class="form-select" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="editCity">City <span class="required">*</span></label>
+                            <input type="text" id="editCity" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="editPhone">Phone <span class="required">*</span></label>
+                            <input type="tel" id="editPhone" class="form-control" required pattern="^[0-9]{10}$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="editEmail">Email <span class="required">*</span></label>
+                            <input type="email" id="editEmail" class="form-control" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label" for="editLastDonationDate">Last Donation Date</label>
+                            <input type="date" id="editLastDonationDate" class="form-control">
+                            <span class="form-hint">Leave blank if the donor has never donated.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('editModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveEditBtn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-backdrop" id="deleteModal">
+        <div class="modal" style="max-width: 420px;">
+            <div class="modal-header">
+                <h3 style="color: var(--danger);">Confirm Deletion</h3>
+                <button class="modal-close" onclick="closeModal('deleteModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:0.92rem; color:var(--dark);">Are you sure you want to delete donor <strong id="deleteDonorName"></strong>?</p>
+                <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-top: 8px;">
+                    This action will permanently remove the donor and all associated donation records from the database.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('deleteModal')">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">Delete Donor</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/donors.js"></script>
+</body>
+</html>

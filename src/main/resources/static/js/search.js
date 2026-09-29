@@ -2,6 +2,15 @@
  * BloodLink — Search Page Controller
  */
 
+if (typeof renderAvatar !== 'function') {
+    window.renderAvatar = function(name, size = 36) {
+        if (!name) return '';
+        const parts = name.trim().split(/\s+/);
+        const initials = parts.length === 1 ? parts[0].substring(0, 2).toUpperCase() : (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        return `<div class="donor-avatar" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:50%; background-color:#EFF6FF; color:#2563EB; border:1px solid #BFDBFE; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:${Math.max(11, Math.round(size * 0.38))}px; letter-spacing:-0.2px; flex-shrink:0;" aria-hidden="true">${initials}</div>`;
+    };
+}
+
 let bloodGroups = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -140,11 +149,14 @@ function renderDonorCards(donors, bgFilter, cityFilter) {
         card.innerHTML = `
             <div>
                 <div class="donor-card-top">
-                    <div>
-                        <div class="donor-card-name">${escapeHtml(donor.fullName)}</div>
-                        <div class="donor-card-city">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            ${escapeHtml(donor.city)}
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        ${renderAvatar(donor.fullName, 42)}
+                        <div>
+                            <div class="donor-card-name">${escapeHtml(donor.fullName)}</div>
+                            <div class="donor-card-city">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                ${escapeHtml(donor.city)}
+                            </div>
                         </div>
                     </div>
                     ${renderBloodBadge(donor.bloodGroupName)}
@@ -180,10 +192,16 @@ function renderDonorCards(donors, bgFilter, cityFilter) {
 function openContactModal(id, name, phone, email, bg, city) {
     const modalBody = document.getElementById('contactModalBody');
     modalBody.innerHTML = `
-        <div style="text-align: center; margin-bottom: 18px;">
-            <div style="margin-bottom: 8px;">${renderBloodBadge(bg)}</div>
-            <h4 style="font-size: 1.15rem; font-weight:700; color: var(--dark);">${escapeHtml(name)}</h4>
-            <div style="font-size: 0.8125rem; color: var(--text-secondary);">${escapeHtml(city)}</div>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div style="margin-bottom: 12px; display:flex; justify-content:center;">${renderAvatar(name, 56)}</div>
+            <div style="display:inline-flex; align-items:center; gap:8px; margin-bottom:4px;">
+                <h4 style="font-size: 1.25rem; font-weight:700; color: var(--dark); margin:0;">${escapeHtml(name)}</h4>
+                ${renderBloodBadge(bg)}
+            </div>
+            <div style="font-size: 0.8125rem; color: var(--text-secondary); display:flex; align-items:center; justify-content:center; gap:4px; margin-top:2px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                ${escapeHtml(city)}
+            </div>
         </div>
 
         <div style="background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 18px;">

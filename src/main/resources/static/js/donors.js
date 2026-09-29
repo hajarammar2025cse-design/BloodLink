@@ -2,6 +2,15 @@
  * BloodLink — Donors Registry Controller
  */
 
+if (typeof renderAvatar !== 'function') {
+    window.renderAvatar = function(name, size = 36) {
+        if (!name) return '';
+        const parts = name.trim().split(/\s+/);
+        const initials = parts.length === 1 ? parts[0].substring(0, 2).toUpperCase() : (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        return `<div class="donor-avatar" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:50%; background-color:#EFF6FF; color:#2563EB; border:1px solid #BFDBFE; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:${Math.max(11, Math.round(size * 0.38))}px; letter-spacing:-0.2px; flex-shrink:0;" aria-hidden="true">${initials}</div>`;
+    };
+}
+
 let allDonors = [];
 let bloodGroups = [];
 let donorToDeleteId = null;
@@ -122,22 +131,39 @@ function renderDonorTable(donors) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <div style="font-weight:600; color:var(--dark);">${escapeHtml(donor.fullName)}</div>
-                <div style="font-size:0.75rem; color:var(--text-muted);">ID: #${donor.id}</div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    ${renderAvatar(donor.fullName, 36)}
+                    <div>
+                        <div style="font-weight:600; color:var(--dark); font-size:0.9rem;">${escapeHtml(donor.fullName)}</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">ID: #${donor.id}</div>
+                    </div>
+                </div>
             </td>
             <td>${renderBloodBadge(donor.bloodGroupName)}</td>
-            <td>${escapeHtml(donor.city)}</td>
+            <td><span style="font-weight:500; color:var(--dark);">${escapeHtml(donor.city)}</span></td>
             <td>
-                <div><a href="tel:${escapeHtml(donor.phone)}" style="color:var(--primary); font-weight:500;">${escapeHtml(donor.phone)}</a></div>
+                <div><a href="tel:${escapeHtml(donor.phone)}" style="color:var(--primary); font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    ${escapeHtml(donor.phone)}
+                </a></div>
                 <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(donor.email)}</div>
             </td>
-            <td>${formatDate(donor.lastDonationDate)}</td>
+            <td><span style="font-weight:600; color:var(--dark);">${formatDate(donor.lastDonationDate)}</span></td>
             <td>${renderStatusBadge(donor.available, donor.daysRemaining, donor.eligibleDate)}</td>
             <td style="text-align: right;">
                 <div style="display:inline-flex; gap:6px;">
-                    <button class="btn btn-secondary btn-sm" onclick="openViewModal(${donor.id})">View</button>
-                    <button class="btn btn-secondary btn-sm" onclick="openEditModal(${donor.id})">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${donor.id}, '${escapeHtml(donor.fullName)}')">Delete</button>
+                    <button class="btn btn-secondary btn-sm" onclick="openViewModal(${donor.id})" title="View Details">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        View
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="openEditModal(${donor.id})" title="Edit Donor">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        Edit
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="openDeleteModal(${donor.id}, '${escapeHtml(donor.fullName)}')" title="Delete Donor">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        Delete
+                    </button>
                 </div>
             </td>
         `;
@@ -151,39 +177,66 @@ function openViewModal(id) {
     if (!donor) return;
 
     const modalBody = document.getElementById('viewModalBody');
-    const eligibleText = donor.available ? 'Eligible to donate today' : `Eligible on ${formatDate(donor.eligibleDate)} (${donor.daysRemaining} days remaining)`;
+    const eligibleText = donor.available ? 'Medically eligible to donate blood today' : `In 90-day cooldown until ${formatDate(donor.eligibleDate)} (${donor.daysRemaining} days remaining)`;
 
     modalBody.innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-            <div>
-                <h4 style="font-size:1.25rem; font-weight:700; color:var(--dark);">${escapeHtml(donor.fullName)}</h4>
-                <div style="font-size:0.82rem; color:var(--text-secondary);">${escapeHtml(donor.city)}</div>
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--border-light);">
+            ${renderAvatar(donor.fullName, 52)}
+            <div style="flex:1;">
+                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                    <h4 style="font-size:1.25rem; font-weight:700; color:var(--dark); margin:0;">${escapeHtml(donor.fullName)}</h4>
+                    ${renderBloodBadge(donor.bloodGroupName)}
+                </div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:2px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:middle;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    ${escapeHtml(donor.city)} &bull; Donor ID: #${donor.id}
+                </div>
             </div>
-            ${renderBloodBadge(donor.bloodGroupName)}
         </div>
-        <div class="donor-meta-list">
+
+        <div style="background-color:${donor.available ? 'var(--success-light)' : 'var(--warning-light)'}; border:1px solid ${donor.available ? 'var(--success-border)' : 'var(--warning-border)'}; border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:18px;">
+            <div style="font-weight:700; font-size:0.85rem; color:${donor.available ? '#166534' : '#92400E'}; display:flex; align-items:center; gap:6px;">
+                ${donor.available 
+                    ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Clinical Safety Status: Available' 
+                    : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Clinical Safety Status: In 90-Day Cooldown'}
+            </div>
+            <p style="font-size:0.8125rem; color:${donor.available ? '#14532D' : '#78350F'}; margin-top:4px; line-height:1.4;">
+                ${eligibleText}
+            </p>
+        </div>
+
+        <div class="donor-meta-list" style="margin-bottom:20px;">
             <div class="donor-meta-item">
-                <span class="donor-meta-label">Phone:</span>
-                <span class="donor-meta-val"><a href="tel:${escapeHtml(donor.phone)}" style="color:var(--primary);">${escapeHtml(donor.phone)}</a></span>
+                <span class="donor-meta-label">Phone Contact:</span>
+                <span class="donor-meta-val"><a href="tel:${escapeHtml(donor.phone)}" style="color:var(--primary); font-weight:600;">${escapeHtml(donor.phone)}</a></span>
             </div>
             <div class="donor-meta-item">
-                <span class="donor-meta-label">Email:</span>
+                <span class="donor-meta-label">Email Address:</span>
                 <span class="donor-meta-val">${escapeHtml(donor.email)}</span>
             </div>
             <div class="donor-meta-item">
-                <span class="donor-meta-label">Last Donation:</span>
+                <span class="donor-meta-label">City:</span>
+                <span class="donor-meta-val">${escapeHtml(donor.city)}</span>
+            </div>
+            <div class="donor-meta-item">
+                <span class="donor-meta-label">Last Donation Date:</span>
                 <span class="donor-meta-val">${formatDate(donor.lastDonationDate)}</span>
             </div>
             <div class="donor-meta-item">
-                <span class="donor-meta-label">Status:</span>
+                <span class="donor-meta-label">Current Status:</span>
                 <span class="donor-meta-val">${renderStatusBadge(donor.available, donor.daysRemaining, donor.eligibleDate)}</span>
             </div>
-            <div class="donor-meta-item">
-                <span class="donor-meta-label">Eligibility Note:</span>
-                <span class="donor-meta-val" style="font-size:0.85rem; color:${donor.available ? 'var(--success)' : 'var(--warning)'}; font-weight:600;">
-                    ${eligibleText}
-                </span>
-            </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+            <a href="tel:${escapeHtml(donor.phone)}" class="btn btn-primary" style="flex:1;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call Donor
+            </a>
+            <a href="mailto:${escapeHtml(donor.email)}?subject=BloodLink Donation Inquiry" class="btn btn-secondary" style="flex:1;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Send Email
+            </a>
         </div>
     `;
 

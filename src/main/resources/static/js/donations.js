@@ -2,6 +2,15 @@
  * BloodLink — Donations Controller
  */
 
+if (typeof renderAvatar !== 'function') {
+    window.renderAvatar = function(name, size = 36) {
+        if (!name) return '';
+        const parts = name.trim().split(/\s+/);
+        const initials = parts.length === 1 ? parts[0].substring(0, 2).toUpperCase() : (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        return `<div class="donor-avatar" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:50%; background-color:#EFF6FF; color:#2563EB; border:1px solid #BFDBFE; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:${Math.max(11, Math.round(size * 0.38))}px; letter-spacing:-0.2px; flex-shrink:0;" aria-hidden="true">${initials}</div>`;
+    };
+}
+
 let allDonors = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -63,16 +72,22 @@ function renderDonationsTable(donations) {
     donations.forEach(donation => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><code style="font-weight:600; color:var(--text-secondary);">#${donation.id}</code></td>
+            <td><code style="font-weight:600; color:var(--text-secondary); background:var(--bg); padding:2px 6px; border-radius:4px; border:1px solid var(--border);">#${donation.id}</code></td>
             <td>
-                <div style="font-weight:600; color:var(--dark);">${escapeHtml(donation.donorName || 'Unknown')}</div>
-                <div style="font-size:0.75rem; color:var(--text-muted);">Donor ID: #${donation.donorId}</div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    ${renderAvatar(donation.donorName, 36)}
+                    <div>
+                        <div style="font-weight:600; color:var(--dark); font-size:0.9rem;">${escapeHtml(donation.donorName || 'Unknown')}</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">Donor ID: #${donation.donorId}</div>
+                    </div>
+                </div>
             </td>
             <td>${renderBloodBadge(donation.bloodGroup)}</td>
-            <td>${escapeHtml(donation.city || '—')}</td>
+            <td><span style="font-weight:500; color:var(--dark);">${escapeHtml(donation.city || '—')}</span></td>
             <td><strong style="color:var(--dark);">${formatDate(donation.donationDate)}</strong></td>
             <td>
-                <a href="tel:${escapeHtml(donation.phone)}" style="color:var(--primary); font-size:0.85rem;">
+                <a href="tel:${escapeHtml(donation.phone)}" style="color:var(--primary); font-size:0.85rem; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                     ${escapeHtml(donation.phone || '—')}
                 </a>
             </td>
@@ -112,10 +127,13 @@ function setupForm() {
             submitBtn.textContent = 'Donor Ineligible (In Cooldown)';
 
             previewBody.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                    <div>
-                        <h4 style="font-size:1.15rem; color:var(--dark);">${escapeHtml(donor.fullName)}</h4>
-                        <div style="font-size:0.85rem; color:var(--text-secondary);">${escapeHtml(donor.city)} &bull; ${escapeHtml(donor.phone)}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border-light);">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        ${renderAvatar(donor.fullName, 46)}
+                        <div>
+                            <h4 style="font-size:1.15rem; font-weight:700; color:var(--dark); margin:0;">${escapeHtml(donor.fullName)}</h4>
+                            <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:2px;">${escapeHtml(donor.city)} &bull; ${escapeHtml(donor.phone)}</div>
+                        </div>
                     </div>
                     ${renderBloodBadge(donor.bloodGroupName)}
                 </div>
@@ -125,7 +143,7 @@ function setupForm() {
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                         90-Day Cooldown Period Active
                     </div>
-                    <p style="font-size: 0.85rem; color: #78350F;">
+                    <p style="font-size: 0.85rem; color: #78350F; line-height:1.4;">
                         This donor donated on <strong>${formatDate(donor.lastDonationDate)}</strong> and cannot donate again until <strong>${formatDate(donor.eligibleDate)}</strong> (${donor.daysRemaining} days remaining).
                     </p>
                 </div>
@@ -147,10 +165,13 @@ function setupForm() {
             submitBtn.textContent = 'Record Blood Donation';
 
             previewBody.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                    <div>
-                        <h4 style="font-size:1.15rem; color:var(--dark);">${escapeHtml(donor.fullName)}</h4>
-                        <div style="font-size:0.85rem; color:var(--text-secondary);">${escapeHtml(donor.city)} &bull; ${escapeHtml(donor.phone)}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border-light);">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        ${renderAvatar(donor.fullName, 46)}
+                        <div>
+                            <h4 style="font-size:1.15rem; font-weight:700; color:var(--dark); margin:0;">${escapeHtml(donor.fullName)}</h4>
+                            <div style="font-size:0.82rem; color:var(--text-secondary); margin-top:2px;">${escapeHtml(donor.city)} &bull; ${escapeHtml(donor.phone)}</div>
+                        </div>
                     </div>
                     ${renderBloodBadge(donor.bloodGroupName)}
                 </div>

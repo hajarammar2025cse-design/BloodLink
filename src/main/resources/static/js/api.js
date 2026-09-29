@@ -141,6 +141,40 @@ function escapeHtml(text) {
         .replace(/'/g, '&#039;');
 }
 
+// Generate donor avatar initials and styling
+function getInitials(name) {
+    if (!name) return 'BL';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function getAvatarColor(name) {
+    const colors = [
+        { bg: '#EFF6FF', text: '#2563EB', border: '#BFDBFE' }, // Blue
+        { bg: '#FDF2F8', text: '#DB2777', border: '#FBCFE8' }, // Pink
+        { bg: '#F0FDF4', text: '#16A34A', border: '#BBF7D0' }, // Green
+        { bg: '#F5F3FF', text: '#7C3AED', border: '#DDD6FE' }, // Purple
+        { bg: '#FFF7ED', text: '#EA580C', border: '#FED7AA' }, // Orange
+        { bg: '#ECFEFF', text: '#0891B2', border: '#A5F3FC' }, // Cyan
+        { bg: '#FDF4FF', text: '#C026D3', border: '#F5D0FE' }, // Fuchsia
+        { bg: '#FFF1F2', text: '#E11D48', border: '#FECDD3' }  // Crimson
+    ];
+    let hash = 0;
+    for (let i = 0; i < (name || '').length; i++) {
+        hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
+}
+
+function renderAvatar(name, size = 36) {
+    const initials = getInitials(name);
+    const color = getAvatarColor(name);
+    const fontSize = Math.max(11, Math.round(size * 0.38));
+    return `<div class="donor-avatar" style="width:${size}px; height:${size}px; min-width:${size}px; border-radius:50%; background-color:${color.bg}; color:${color.text}; border:1px solid ${color.border}; display:inline-flex; align-items:center; justify-content:center; font-weight:700; font-size:${fontSize}px; letter-spacing:-0.2px; flex-shrink:0;" aria-hidden="true">${initials}</div>`;
+}
+
 // Setup mobile sidebar toggle & global modal escape listener
 document.addEventListener('DOMContentLoaded', () => {
     const hamburgerBtn = document.getElementById('hamburgerBtn');
